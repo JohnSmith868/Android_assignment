@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Library System</string>
+    <string name="nav_bar_home">主頁</string>
+    <string name="search_book_hint">請輸入</string>
+</resources>
