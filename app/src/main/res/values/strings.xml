@@ -3,6 +3,7 @@
     <string name="nav_bar_home">Home</string>
     <string name="search_book_hint">enter something</string>
     <string name="open_nav_bar" translatable="false">Open Navigation Bar</string>
+    <string name="permission_rationale" translatable="false">permission_rationale</string>
     <string name="close_nav_bar" translatable="false">Close Navigation Bar</string>
     <string name="nav_bar_branches">Branches</string>
 </resources>

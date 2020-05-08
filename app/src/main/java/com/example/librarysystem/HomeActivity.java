@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -64,7 +65,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SearchBookFragment()).commit();
                 break;
             case R.id.nav_item_branches:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new BranchesMapFragment()).commit();
+                Intent intent = new Intent(HomeActivity.this,BranchesMapActivity.class);
+                startActivity(intent);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
