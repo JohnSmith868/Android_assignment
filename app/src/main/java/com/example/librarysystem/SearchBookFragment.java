@@ -26,15 +26,15 @@ public class SearchBookFragment extends Fragment {
 
         bookLists = new ArrayList<>();
         bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
-        bookLists.add(new BookCard("book1","author1"));
+        bookLists.add(new BookCard("book2","author2"));
+        bookLists.add(new BookCard("book3","author3"));
+        bookLists.add(new BookCard("book4","author4"));
+        bookLists.add(new BookCard("book5","author5"));
+        bookLists.add(new BookCard("book6","author6"));
+        bookLists.add(new BookCard("book7","author7"));
+        bookLists.add(new BookCard("book8","author8"));
+        bookLists.add(new BookCard("book9","author9"));
+        bookLists.add(new BookCard("book10","author11"));
 
     }
 
