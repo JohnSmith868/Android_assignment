@@ -12,8 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BranchesMapActivity"></activity>
+        <activity android:name=".UpLoadBooksActivity"></activity>
+        <activity android:name=".BranchesMapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -4,4 +4,6 @@
     <string name="nav_bar_home">主頁</string>
     <string name="search_book_hint">請輸入</string>
     <string name="nav_bar_branches">分店</string>
+    <string name="uploadbook_bookname">書名</string>
+    <string name="uploadbook_authorname">作者</string>
 </resources>

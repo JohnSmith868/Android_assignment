@@ -1,5 +1,9 @@
 package com.example.librarysystem;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,13 +11,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ManagerHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar hometoolbar;
     private DrawerLayout drawerLayout;
@@ -60,12 +60,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SearchBookFragment()).commit();
                 break;
             case R.id.nav_item_branches:
-                Intent intent = new Intent(HomeActivity.this,BranchesMapActivity.class);
+                Intent intent = new Intent(ManagerHomeActivity.this,BranchesMapActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.nav_item_uploadbook:
-                Intent intent_uploadbook = new Intent(HomeActivity.this, UpLoadBooksActivity.class);
-                startActivity(intent_uploadbook);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

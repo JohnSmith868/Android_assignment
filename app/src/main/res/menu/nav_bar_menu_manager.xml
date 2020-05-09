@@ -11,9 +11,5 @@
             android:id="@+id/nav_item_branches">
 
         </item>
-        <item android:title="@string/nav_bar_branches"
-            android:id="@+id/nav_item_uploadbook">
-
-        </item>
 
 </menu>

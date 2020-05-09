@@ -5,5 +5,12 @@
     <string name="open_nav_bar" translatable="false">Open Navigation Bar</string>
     <string name="permission_rationale" translatable="false">permission_rationale</string>
     <string name="close_nav_bar" translatable="false">Close Navigation Bar</string>
+    <string name="backend_url" translatable="false">http://localhost:4000</string>
     <string name="nav_bar_branches">Branches</string>
+    <string name="uploadbook_bookname">Book Name</string>
+    <string name="uploadbook_authorname">Author Name</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="tv_username">Username</string>
+    <string name="tv_password">Password</string>
 </resources>
