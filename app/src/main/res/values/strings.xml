@@ -13,4 +13,9 @@
     <string name="btn_register">Register</string>
     <string name="tv_username">Username</string>
     <string name="tv_password">Password</string>
+    <string name="nav_bar_uploadbook">Upload new book</string>
+    <string name="nav_bar_shakebook">Shake a book</string>
+    <string name="btn_add_appointment">Make Appointment</string>
+    <string name="btn_view_detail">View Detail</string>
+    <string name="nav_bar_mybooks">My Appointment</string>
 </resources>

@@ -41,6 +41,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
                 Intent intent = new Intent(mContext, BookDetailActivity.class);
                 intent.putExtra("title",bookList.get(position).getTitle());
                 intent.putExtra("author",bookList.get(position).getAuthor());
+                intent.putExtra("bookid",bookList.get(position).getBookid());
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.btn_addCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MakeApointmentActivity.class);
+                intent.putExtra("bookid", bookList.get(position).getBookid());
                 mContext.startActivity(intent);
             }
         });

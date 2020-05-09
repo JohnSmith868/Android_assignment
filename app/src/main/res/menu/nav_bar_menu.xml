@@ -11,8 +11,16 @@
             android:id="@+id/nav_item_branches">
 
         </item>
-        <item android:title="@string/nav_bar_branches"
+        <item android:title="@string/nav_bar_uploadbook"
             android:id="@+id/nav_item_uploadbook">
+
+        </item>
+        <item android:title="@string/nav_bar_shakebook"
+            android:id="@+id/nav_item_shakebook">
+
+        </item>
+        <item android:title="@string/nav_bar_mybooks"
+                android:id="@+id/nav_item_mybooks">
 
         </item>
 

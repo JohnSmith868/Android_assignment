@@ -1,7 +1,8 @@
 package com.example.librarysystem;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +27,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchBookFragment extends Fragment {
+public class MyBookFragment extends Fragment {
 
-    private RecyclerView searchBookRecyclerView;
+    private RecyclerView myBookRecyclerView;
     ProgressBar loading;
-    BookAdapter bookAdapter;
+    BookAdapterOfMyBooks myBookAdapter;
     RequestQueue requestQueue;
-    private List<BookCard> bookLists;
+    SharedPreferences sharedPreferences;
+    private static final String SHARE_PREF = "sharePref";
+    int userid;
+    private List<BookCardOfMyBooks> myBookLists;
 
 
     View v;
@@ -43,8 +48,10 @@ public class SearchBookFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bookLists = new ArrayList<>();
+        myBookLists = new ArrayList<>();
         System.out.println("sequence 1");
+        sharedPreferences = getActivity().getSharedPreferences(SHARE_PREF, Context.MODE_PRIVATE);
+        userid = sharedPreferences.getInt("userid",-1);
 
 
 
@@ -56,7 +63,7 @@ public class SearchBookFragment extends Fragment {
     private void getBooks() {
         System.out.println("sequence 2");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.backend_url)+ "/getAllBooks",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.backend_url)+ "/getMyAppointment",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -67,13 +74,15 @@ public class SearchBookFragment extends Fragment {
                                 for(int i = 0;i<jsonArray.length();i++){
 
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    bookLists.add(new BookCard(jsonObject.getString("bookname"),jsonObject.getString("author"), jsonObject.getInt("bookid")));
-                                    System.out.println("succeed add booklist");
+                                    myBookLists.add(new BookCardOfMyBooks(jsonObject.getString("bookname"),jsonObject.getString("author"), jsonObject.getInt("apointid"),jsonObject.getString("deadline")));
+                                    System.out.println("succeed add myappointmentlist");
                                 }
 
-                                searchBookRecyclerView.setAdapter(bookAdapter);
+                                myBookRecyclerView.setAdapter(myBookAdapter);
                                 loading.setVisibility(View.GONE);
                                 System.out.println("sequence 4");
+                            }else{
+                                System.out.println("json array < 0");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -91,7 +100,10 @@ public class SearchBookFragment extends Fragment {
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
+                Map<String,String> params = new HashMap<>();
+                params.put("userid",userid+"");
+
+                return params;
             }
         };
 
@@ -107,17 +119,17 @@ public class SearchBookFragment extends Fragment {
 
 
 
-        v = inflater.inflate(R.layout.fragment_searchbook,container,false);
+        v = inflater.inflate(R.layout.fragment_mybook,container,false);
 
-        searchBookRecyclerView = (RecyclerView) v.findViewById(R.id.search_book_rv);
-        loading = (ProgressBar) v.findViewById(R.id.loading_search_book_fragment);
+        myBookRecyclerView = (RecyclerView) v.findViewById(R.id.my_book_rv);
+        loading = (ProgressBar) v.findViewById(R.id.loading_my_book_fragment);
         loading.setVisibility(View.VISIBLE);
 
 
 
 
-        searchBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        bookAdapter = new BookAdapter(getContext(),bookLists);
+        myBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        myBookAdapter = new BookAdapterOfMyBooks(getContext(),myBookLists);
         requestQueue = Volley.newRequestQueue(getActivity());
         getBooks();
 

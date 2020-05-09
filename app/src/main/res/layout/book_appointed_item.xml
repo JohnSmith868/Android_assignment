@@ -31,14 +31,14 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/book_card_title"
+                    android:id="@+id/book_appointed_card_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="book title"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
-                    android:id="@+id/book_card_author"
+                    android:id="@+id/book_appointed_card_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -54,20 +54,12 @@
                 android:layout_margin="8dp"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/book_card_add_cart"
-                    style="?attr/borderlessButtonStyle"
+                <TextView
+                    android:id="@+id/book_appointed_card_collectdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/btn_add_appointment" />
+                    android:text="Please collect the book before"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/book_card_go_to_detail"
-                    style="?attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/btn_view_detail" />
             </LinearLayout>
 
         </LinearLayout>

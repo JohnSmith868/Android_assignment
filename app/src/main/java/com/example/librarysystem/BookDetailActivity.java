@@ -10,8 +10,10 @@ public class BookDetailActivity extends AppCompatActivity {
 
     TextView title;
     TextView author;
+    TextView tvBookid;
     String titledata;
     String authordata;
+    int bookid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
         title = findViewById(R.id.tv_bookdetail_title);
         author = findViewById(R.id.tv_bookdetail_author);
+        tvBookid = findViewById(R.id.tv_bookdetail_bookid);
 
         getData();
         setData();
@@ -27,9 +30,10 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        if(getIntent().hasExtra("title")&&getIntent().hasExtra("author")){
+        if(getIntent().hasExtra("title")&&getIntent().hasExtra("author")&&getIntent().hasExtra("bookid")){
             titledata = getIntent().getStringExtra("title");
             authordata = getIntent().getStringExtra("author");
+            bookid = getIntent().getIntExtra("bookid",1);
 
         }else{
             Toast.makeText(this,"no data",Toast.LENGTH_LONG).show();
@@ -41,5 +45,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         title.setText(titledata);
         author.setText(authordata);
+        tvBookid.setText(bookid+"");
     }
 }

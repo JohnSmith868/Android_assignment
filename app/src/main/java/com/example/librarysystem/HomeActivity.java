@@ -67,6 +67,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent_uploadbook = new Intent(HomeActivity.this, UpLoadBooksActivity.class);
                 startActivity(intent_uploadbook);
                 break;
+            case R.id.nav_item_shakebook:
+                Intent intent_shakeBook = new Intent(HomeActivity.this,ShakeBookActivity.class);
+                startActivity(intent_shakeBook);
+                break;
+            case R.id.nav_item_mybooks:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MyBookFragment()).commit();
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
