@@ -7,10 +7,13 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,20 +40,32 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.ls.LSOutput;
 
-public class BranchesMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class BranchesMapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     GoogleMap map;
+    boolean initCamera = true;
     Location currentLocation;
     Marker currentlocationMarker;
+    Polyline currentPolyline = null;
+    LatLng clickedMarker;
     FusedLocationProviderClient fusedLocationProviderClient;
     LocationRequest locationRequest;
+    Button btnShowRoute;
+    ArrayList<HashMap<String, Double>> arrsteps = new ArrayList<>();
 
     private static final int REQUEST_LOCATION = 1;
 
@@ -59,13 +74,28 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_branches_map);
 
+        btnShowRoute = findViewById(R.id.map_btn_show_route);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(20*1000);
         locationRequest.setFastestInterval(20*1000);
 
+
         fetchLastLocation();
+
+        btnShowRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clickedMarker!=null){
+                    System.out.println("marker latlng"+clickedMarker.toString());
+                    getRoute();
+                }
+            }
+        });
+
+
 
 
     }
@@ -149,43 +179,112 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        map = googleMap;
+
+        this.map = googleMap;
         if(currentlocationMarker!=null){
+
             currentlocationMarker.remove();
+        }
+        if(currentPolyline!=null){
+
+            System.out.println("polylin is not null");
+
+            currentPolyline.remove();
+            map.clear();
+            System.out.println("polyline after remove and null"+ currentPolyline.getPoints().toString());
+            currentPolyline = null;
+
         }
 
         float zoomLevel = 16.0f;
         LatLng sportground = new LatLng(22.309045,114.178121);
+        LatLng bookshop2 = new LatLng(22.3933,114.1912);
 
         LatLng currentLocationLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(currentLocationLatLng).title("this is sport ground");
+        MarkerOptions markerOptions = new MarkerOptions().position(currentLocationLatLng).title("You're here");
+        MarkerOptions markerOptionsTarget = new MarkerOptions().position(sportground).title("our book shop");
+        MarkerOptions markerOptionsBookshop2 = new MarkerOptions().position(bookshop2).title("our book shop");
 
-        map.animateCamera(CameraUpdateFactory.newLatLng(currentLocationLatLng));
+        if(initCamera){
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocationLatLng, 9.0f));
+            initCamera = false;
+        }
+
+
 //        map.animateCamera(CameraUpdateFactory.newLatLngZoom(sportground,zoomLevel));
-         currentlocationMarker = map.addMarker(markerOptions);
+         currentlocationMarker = this.map.addMarker(markerOptions);
+        this.map.addMarker(markerOptionsTarget);
+        map.addMarker(markerOptionsBookshop2);
 
-//
-//         String url = getUrl(currentLocationLatLng,sportground,"driv");
-//         RequestQueue queue = Volley.newRequestQueue(this);
-//        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
-//                new Response.Listener<JSONObject>()
-//                {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        // display response
-//                        Log.d("Response", response.toString());
-//                    }
-//                },
-//                new Response.ErrorListener()
-//                {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.d("Error.Response", error.toString());
-//                    }
-//                }
-//        );
-//
-//        queue.add(getRequest);
+        map.setOnMarkerClickListener(this);
+
+
+
+
+
+    }
+
+    public void getRoute(){
+        LatLng currentLocationLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+        String url = getUrl(currentLocationLatLng,clickedMarker,"driving");
+        System.out.println("url: is "+url);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            arrsteps.clear();
+                            System.out.println("arrsteps: afterclear"+ arrsteps.toString());
+                            double startLat, startLng, stopLat, stopLng;
+                            JSONObject routes = response.getJSONArray("routes").getJSONObject(0);
+                            JSONObject legs = routes.getJSONArray("legs").getJSONObject(0);
+                            JSONArray  steps = legs.getJSONArray("steps");
+
+                            for(int i = 0; i<steps.length();i++){
+                                JSONObject step = steps.getJSONObject(i);
+                                JSONObject startlocation = step.getJSONObject("start_location");
+                                startLat = startlocation.getDouble("lat");
+                                startLng = startlocation.getDouble("lng");
+                                JSONObject endlocation = step.getJSONObject("end_location");
+                                stopLat = endlocation.getDouble("lat");
+                                stopLng = endlocation.getDouble("lng");
+
+                                HashMap<String, Double> hm = new HashMap<>();
+                                hm.put("start_lat",startLat);
+                                hm.put("start_lng",startLng);
+                                hm.put("stop_lat",stopLat);
+                                hm.put("stop_lng",stopLng);
+                                arrsteps.add(hm);
+
+
+
+
+
+                            }
+                            System.out.println("arrsteps after add+"+ arrsteps.toString());
+                            gambarPolyline(arrsteps,Color.BLACK,5.0f);
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // display response
+                        Log.d("Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(getRequest);
 
 
 
@@ -202,6 +301,21 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
 
     }
 
+    public void gambarPolyline(ArrayList<HashMap<String, Double>> arrsteps, int warna, float lebar){
+        ArrayList<LatLng> arrayLatlng = new ArrayList<>();
+
+        for(int y = 0; y<arrsteps.size();y++){
+            arrayLatlng.add(new LatLng(arrsteps.get(y).get("start_lat"), arrsteps.get(y).get("start_lng")));
+            arrayLatlng.add(new LatLng(arrsteps.get(y).get("stop_lat"), arrsteps.get(y).get("stop_lng")));
+        }
+        System.out.println("array Latlng "+ arrayLatlng);
+        PolylineOptions currentPolylineOptions = new  PolylineOptions().clickable(true).addAll(arrayLatlng).color(Color.BLACK).width(5.0f);
+        currentPolyline = map.addPolyline(currentPolylineOptions);
+
+        System.out.println("current poly line"+currentPolyline.getPoints().toString());
+
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -212,5 +326,11 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
                 break;
 
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        this.clickedMarker = marker.getPosition();
+        return false;
     }
 }
