@@ -31,6 +31,7 @@
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:hint="@string/tv_password"
+        android:id="@+id/text_input_layout_password"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
