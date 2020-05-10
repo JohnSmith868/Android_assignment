@@ -61,7 +61,8 @@ public class UpLoadBooksActivity extends AppCompatActivity {
                 String author = txeAuthor.getText().toString();
                 String isbn = txeISBN.getText().toString();
 
-                if(!title.isEmpty()||!author.isEmpty()||!isbn.isEmpty()){
+                if(!title.isEmpty()&&!author.isEmpty()&&!isbn.isEmpty()){
+                    System.out.println("upload book data "+title+", "+author+" ,"+ isbn);
                     makeUpload(title, author,isbn);
                 }else {
                     txeAuthor.setError(getString(R.string.alert_empty_title));

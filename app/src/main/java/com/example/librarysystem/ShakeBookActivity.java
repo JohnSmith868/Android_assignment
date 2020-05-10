@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,6 +14,17 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ShakeBookActivity extends AppCompatActivity implements SensorEventListener {
     TextView tv_shakeBook;
@@ -30,6 +42,7 @@ public class ShakeBookActivity extends AppCompatActivity implements SensorEventL
     float zCompare;
     boolean initSensor = true;
     boolean isAccelSensorAvail;
+    LoadingDialog loadingDialog;
     Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,7 @@ public class ShakeBookActivity extends AppCompatActivity implements SensorEventL
 
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        loadingDialog = new LoadingDialog(this);
 
         if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!=null){
             accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -82,8 +96,18 @@ public class ShakeBookActivity extends AppCompatActivity implements SensorEventL
                 tv_shakeBook.setText("shaking");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(VibrationEffect.createOneShot(500,VibrationEffect.DEFAULT_AMPLITUDE));
+
+                    loadingDialog.startloadingDialog();
+                    randomBook();
+                    sensorManager.unregisterListener(this);
+
                 }else {
                     vibrator.vibrate(500);
+
+                    loadingDialog.startloadingDialog();
+                    randomBook();
+                    sensorManager.unregisterListener(this);
+
                 }
 
             }else {
@@ -96,6 +120,44 @@ public class ShakeBookActivity extends AppCompatActivity implements SensorEventL
         yIndexBefore = yIndex;
         zIndexBefore = zIndex;
         initSensor = false;
+
+    }
+
+    private void randomBook() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.backend_url) + "/randomBook",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject!=null){
+                                loadingDialog.dialogDismiss();
+                                sensorManager.unregisterListener(ShakeBookActivity.this);
+                                Intent intent = new Intent(ShakeBookActivity.this, BookDetailActivity.class);
+                                intent.putExtra("title",jsonObject.getString("bookname"));
+                                intent.putExtra("author",jsonObject.getString("author"));
+                                intent.putExtra("bookid",jsonObject.getInt("bookid"));
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(ShakeBookActivity.this,"something error", Toast.LENGTH_SHORT).show();
+                            loadingDialog.dialogDismiss();
+
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ShakeBookActivity.this,"something error", Toast.LENGTH_SHORT).show();
+                        loadingDialog.dialogDismiss();
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
 
     }
 
