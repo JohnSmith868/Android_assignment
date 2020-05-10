@@ -18,4 +18,12 @@
     <string name="btn_add_appointment">Make Appointment</string>
     <string name="btn_view_detail">View Detail</string>
     <string name="nav_bar_mybooks">My Appointment</string>
+    <string name="upload">Upload</string>
+    <string name="uploadbook_ISBN">ISBN</string>
+    <string name="loading">Loading...</string>
+    <string name="alert_not_manager">You are not manager</string>
+    <string name="nav_bar_log_out">Log out</string>
+    <string name="alert_empty_title">Please enter the book title</string>
+    <string name="alert_empty_author">Please enter the book author</string>
+    <string name="alert_empty_isbn">Please enter the book ISBN</string>
 </resources>

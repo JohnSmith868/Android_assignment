@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText txeUsername;
     private TextInputEditText txePassword;
     private ProgressBar loading;
-    private static final String URL_LOGIN = "http://localhost:4000/login/normaluser";
+    private static final String URL_LOGIN = "http://localhost:4000/login/both";
     private static final String SHARE_PREF = "sharePref";
 
 
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putBoolean("isLogin",true);
                                 editor.putInt("userid",jsonObject.getInt("userid"));
                                 editor.putString("usertype",jsonObject.getString("usertype"));
+                                System.out.println("usertype: "+jsonObject.getString("usertype"));
                                 editor.apply();
                                 Intent intent = new Intent(MainActivity.this,HomeActivity.class);
                                 startActivity(intent);

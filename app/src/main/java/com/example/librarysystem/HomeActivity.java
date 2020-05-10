@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,12 +19,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar hometoolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String usertype;
+    boolean isLogin;
+    LoadingDialog loadingDialog;
+    private static final String SHARE_PREF = "sharePref";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        loadingDialog = new LoadingDialog(this);
+        sharedPreferences = getSharedPreferences(SHARE_PREF,MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        usertype = sharedPreferences.getString("usertype","normaluser");
+        System.out.println("usertype in home: "+usertype);
 
         hometoolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(hometoolbar);
@@ -64,6 +77,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_item_uploadbook:
+                if(!usertype.equals("manager")){
+                    loadingDialog.setCancelable();
+                    loadingDialog.setTitle(getString(R.string.alert_not_manager));
+                    loadingDialog.startloadingDialog();
+                    break;
+                }
                 Intent intent_uploadbook = new Intent(HomeActivity.this, UpLoadBooksActivity.class);
                 startActivity(intent_uploadbook);
                 break;
@@ -74,6 +93,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_item_mybooks:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MyBookFragment()).commit();
                 break;
+            case R.id.nva_item_logout:
+                editor.putBoolean("isLogin",false);
+                editor.apply();
+                Intent intent_main = new Intent(HomeActivity.this,MainActivity.class);
+                startActivity(intent_main);
+                finish();
+                break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

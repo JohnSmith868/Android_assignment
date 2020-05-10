@@ -8,8 +8,20 @@
     tools:context=".UpLoadBooksActivity">
 
 
+    <ProgressBar
+        android:id="@+id/loading_upload_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_uploadBook_ISBN"
+        app:layout_constraintVertical_bias="0.823" />
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/textInputLayout_uploadBook_title"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
 
@@ -21,11 +33,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txe_upload_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_uploadBook_author"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
 
@@ -35,11 +49,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_uploadBook_title"
         app:layout_constraintVertical_bias="0.101">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txe_upload_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_uploadBook_ISBN"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/uploadbook_ISBN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_uploadBook_author"
+        app:layout_constraintVertical_bias="0.101">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txe_upload_isbn"
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_uploadbook"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_uploadBook_ISBN"
+        app:layout_constraintVertical_bias="0.823" />
 </androidx.constraintlayout.widget.ConstraintLayout>
