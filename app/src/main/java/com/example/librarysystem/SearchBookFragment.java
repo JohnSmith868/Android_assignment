@@ -67,7 +67,7 @@ public class SearchBookFragment extends Fragment {
                                 for(int i = 0;i<jsonArray.length();i++){
 
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    bookLists.add(new BookCard(jsonObject.getString("bookname"),jsonObject.getString("author"), jsonObject.getInt("bookid")));
+                                    bookLists.add(new BookCard(jsonObject.getString("bookname"),jsonObject.getString("author"), jsonObject.getInt("bookid"),jsonObject.getString("ISBN")));
                                     System.out.println("succeed add booklist");
                                 }
 

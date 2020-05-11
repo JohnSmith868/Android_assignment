@@ -10,29 +10,13 @@
         android:id="@+id/tv_bookdetail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="169dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="568dp"
         android:text="title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_bookdetail_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginBottom="510dp"
-        android:text="author"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bookdetail_title" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.229" />
 
     <TextView
         android:id="@+id/tv_bookdetail_bookid"
@@ -45,9 +29,34 @@
         android:text="bookid"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_bookdetail_author"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_bookdetail_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="author"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bookdetail_title"
+        app:layout_constraintVertical_bias="0.095" />
+
+    <TextView
+        android:id="@+id/tv_bookdetail_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="isbn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bookdetail_bookid"
+        app:layout_constraintVertical_bias="0.231" />
 
     <TextView
         android:id="@+id/tv_bookdetail_titlelable"
@@ -105,17 +114,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_bookdetail_bookidlable"
         app:layout_constraintVertical_bias="0.125" />
 
-    <TextView
-        android:id="@+id/tv_bookdetail_isbn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="isbn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bookdetail_bookid"
-        app:layout_constraintVertical_bias="0.15" />
-
     <Button
         android:id="@+id/btn_bookdetail_makeappoint"
         android:layout_width="wrap_content"
@@ -123,8 +121,8 @@
         android:text="@string/btn_add_appointment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintHorizontal_bias="0.249"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.848" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -89,6 +89,9 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v) {
                 if(clickedMarker!=null){
+                    if(currentPolyline!=null) {
+                        currentPolyline.remove();
+                    }
                     System.out.println("marker latlng"+clickedMarker.toString());
                     getRoute();
                 }
@@ -206,7 +209,7 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
         MarkerOptions markerOptionsBookshop2 = new MarkerOptions().position(bookshop2).title("our book shop");
 
         if(initCamera){
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocationLatLng, 9.0f));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocationLatLng, zoomLevel));
             initCamera = false;
         }
 
@@ -226,7 +229,7 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
 
     public void getRoute(){
         LatLng currentLocationLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-        String url = getUrl(currentLocationLatLng,clickedMarker,"driving");
+        String url = getUrl(currentLocationLatLng,clickedMarker,"walking");
         System.out.println("url: is "+url);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>()
@@ -326,6 +329,11 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
                 break;
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override

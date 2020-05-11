@@ -42,6 +42,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
                 intent.putExtra("title",bookList.get(position).getTitle());
                 intent.putExtra("author",bookList.get(position).getAuthor());
                 intent.putExtra("bookid",bookList.get(position).getBookid());
+                intent.putExtra("isbn",bookList.get(position).getIsbn());
                 mContext.startActivity(intent);
             }
         });

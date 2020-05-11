@@ -4,6 +4,15 @@ public class BookCard {
     String title;
     String author;
     int bookid;
+    String isbn;
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
     public int getBookid() {
         return bookid;
@@ -16,10 +25,11 @@ public class BookCard {
     public BookCard() {
     }
 
-    public BookCard(String title, String author, int bookid) {
+    public BookCard(String title, String author, int bookid, String isbn) {
         this.title = title;
         this.author = author;
         this.bookid = bookid;
+        this.isbn = isbn;
     }
 
     public String getTitle() {

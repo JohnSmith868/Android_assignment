@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +44,14 @@ public class ShakeBookActivity extends AppCompatActivity implements SensorEventL
     boolean initSensor = true;
     boolean isAccelSensorAvail;
     LoadingDialog loadingDialog;
+    ImageView image;
     Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shake_book);
         tv_shakeBook = findViewById(R.id.tv_shake_book);
+        image = findViewById(R.id.imageView);
 
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -138,6 +141,7 @@ public class ShakeBookActivity extends AppCompatActivity implements SensorEventL
                                 intent.putExtra("title",jsonObject.getString("bookname"));
                                 intent.putExtra("author",jsonObject.getString("author"));
                                 intent.putExtra("bookid",jsonObject.getInt("bookid"));
+                                intent.putExtra("isbn",jsonObject.getString("ISBN"));
                                 startActivity(intent);
                             }
                         } catch (JSONException e) {

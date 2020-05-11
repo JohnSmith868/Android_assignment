@@ -35,7 +35,7 @@ public class BookAdapterOfMyBooks extends RecyclerView.Adapter<BookAdapterOfMyBo
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.tv_title.setText(bookList.get(position).getTitle());
         holder.tv_author.setText(bookList.get(position).getAuthor());
-        holder.tv_collectDate.setText(bookList.get(position).getDate());
+        holder.tv_collectDate.setText(mContext.getString(R.string.alert_please_collect)+bookList.get(position).getDate());
 
     }
 

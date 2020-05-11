@@ -27,4 +27,10 @@
     <string name="alert_empty_author">Please enter the book author</string>
     <string name="alert_empty_isbn">Please enter the book ISBN</string>
     <string name="map_show_route">Show direction</string>
+    <string name="book_detail_title_lable">Title:</string>
+    <string name="book_detail_author_lable">Lable:</string>
+    <string name="book_detail_bookid_lable">Book ID:</string>
+    <string name="book_detail_isbn_lable">ISBN:</string>
+    <string name="alert_please_collect">Please collect the book before:</string>
+    <string name="shakebook_notice">Please shake phone to get random book</string>
 </resources>
