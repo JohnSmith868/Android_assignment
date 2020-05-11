@@ -18,23 +18,17 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class UpLoadBooksActivityTest {
+public class BranchesMapActivityTest {
 
     @Rule
-    public ActivityTestRule<UpLoadBooksActivity> mActivityTestRule = new ActivityTestRule<>(UpLoadBooksActivity.class);
+    public ActivityTestRule<BranchesMapActivity> mActivityTestRule = new ActivityTestRule<>(BranchesMapActivity.class);
 
     @Test
-    public void findUI() {
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.txe_upload_title), isDisplayed()));
-        editText.check(matches(isDisplayed()));
+    public void testUIDisplay() {
 
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.txe_upload_author), isDisplayed()));
-        editText2.check(matches(isDisplayed()));
 
         ViewInteraction button = onView(
-                allOf(withId(R.id.btn_uploadbook), isDisplayed()));
+                allOf(withId(R.id.map_btn_show_route), isDisplayed()));
         button.check(matches(isDisplayed()));
 
 
