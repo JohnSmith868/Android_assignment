@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         mLoginButton.setVisibility(View.GONE);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.backend_url)+"/login/both",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

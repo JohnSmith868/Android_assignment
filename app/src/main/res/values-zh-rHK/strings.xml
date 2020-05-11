@@ -7,4 +7,27 @@
     <string name="uploadbook_bookname">書名</string>
     <string name="uploadbook_authorname">作者</string>
     <string name="uploadbook_ISBN">ISBN</string>
+    <string name="btn_login">登入</string>
+    <string name="btn_register">註冊</string>
+    <string name="tv_username">用戶名</string>
+    <string name="tv_password">密碼</string>
+    <string name="nav_bar_uploadbook">上傳新書</string>
+    <string name="nav_bar_shakebook">搖一本書</string>
+    <string name="btn_add_appointment">預約</string>
+    <string name="btn_view_detail">查看詳情</string>
+    <string name="nav_bar_mybooks">我的預約</string>
+    <string name="upload">上傳</string>
+    <string name="loading">載入中...</string>
+    <string name="alert_not_manager">你不是管理員</string>
+    <string name="nav_bar_log_out">登出</string>
+    <string name="alert_empty_title">請輸入書名</string>
+    <string name="alert_empty_author">請輸入作者</string>
+    <string name="alert_empty_isbn">請輸入ISBN</string>
+    <string name="map_show_route">顯示路線</string>
+    <string name="book_detail_title_lable">書名:</string>
+    <string name="book_detail_author_lable">作者:</string>
+    <string name="book_detail_bookid_lable">書本編號:</string>
+    <string name="book_detail_isbn_lable">ISBN:</string>
+    <string name="alert_please_collect">請於以下日期前取書:</string>
+    <string name="shakebook_notice">請搖一搖手機</string>
 </resources>

@@ -199,7 +199,7 @@ public class BranchesMapActivity extends AppCompatActivity implements OnMapReady
 
         }
 
-        float zoomLevel = 16.0f;
+        float zoomLevel = 10.0f;
         LatLng sportground = new LatLng(22.309045,114.178121);
         LatLng bookshop2 = new LatLng(22.3933,114.1912);
 
